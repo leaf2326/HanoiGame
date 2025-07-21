@@ -14,9 +14,11 @@ class HanoiGame:
 
     def setup_sound(self):
         pyxel.load("bgm.pyxres")
+        self.bgm_on = True
         pyxel.playm(BGM, loop=True)
         pyxel.sound(SND_SUCC).set("c3e3g3c4", "p", "7", "n", 15)
         pyxel.sound(SND_FAIL).set("f3a3d4", "p", "6", "n", 10)
+        pyxel.sound(SND_CLEAR).set("g3c4e4g4", "t", "6", "n", 15)
        
 
     def reset(self):
@@ -120,6 +122,16 @@ class HanoiGame:
                 self.disk_index -= 1
                 self.reset()
                 return
+            if self.in_button(mx, my, 128, 8, 32, 8):
+                self.bgm_on = not self.bgm_on
+                if self.bgm_on:
+                    pyxel.playm(BGM, loop=True)
+                else:
+                    pyxel.stop(0)
+                    pyxel.stop(1)
+                    pyxel.stop(2)
+                return
+
 
         if self.anim:
             if self.anim.update():
@@ -185,7 +197,6 @@ class HanoiGame:
         if not self.auto_moves and not self.anim and len(self.poles[2]) == self.num_disks and not self.game_clear:
             self.game_clear = True
             self.clear_timer = 120
-            pyxel.sound(SND_CLEAR).set("g3c4e4g4", "t", "6", "n", 15)
             pyxel.play(SE_CH, SND_CLEAR)
 
         self.invalid_text_timer = max(0, self.invalid_text_timer - 1)
@@ -217,6 +228,9 @@ class HanoiGame:
         pyxel.text(106, 9, "-", 7)
         pyxel.text(SCREEN_W - 64, 4, f"Step: {self.move_count}", 0)
         pyxel.text(SCREEN_W - 64, 12, f"Min: {self.min_moves}", 0)
+        pyxel.rect(128, 8, 32, 8, 3)
+        pyxel.text(132, 9, "BGM", 7 if self.bgm_on else 5)
+
 
     def draw_poles(self):
         for i, px in enumerate(self.POLE_X):
