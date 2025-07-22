@@ -73,6 +73,8 @@ class HanoiGame:
             return True
         if self.in_button(mx, my, 104, 8, 12, 8):
             return True
+        if self.in_button(mx, my, 128, 8, 32, 8):
+            return True
         for i, pole in enumerate(self.poles):
             if not pole:
                 continue

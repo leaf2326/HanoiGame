@@ -1,6 +1,5 @@
 import pyxel
 
-# 定数
 SCREEN_W = 256
 SCREEN_H = 256
 DISK_HEIGHT = 8
