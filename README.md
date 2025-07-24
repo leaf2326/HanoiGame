@@ -2,6 +2,8 @@
 
 This is an interactive Tower of Hanoi game implemented in Python using the Pyxel game engine.
 
+You can play this on a web browser: https://leaf2326.github.io/HanoiGame/
+
 ## Controls
 
 - **Left Click** on a disk to drag and drop
